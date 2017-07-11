@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>End</th>
+      <th>End Time</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +16,12 @@
       <tr>
         <td><%= poll.title %></td>
         <td><%= poll.end %></td>
+      </tr>
         <td><%= link_to 'Show', poll %></td>
         <td><%= link_to 'Edit', edit_poll_path(poll) %></td>
         <td><%= link_to 'Destroy', poll, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <tr></tr>
     <% end %>
   </tbody>
 </table>
