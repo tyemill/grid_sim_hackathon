@@ -11,27 +11,31 @@
 </p>
 
 <h2>Options</h2>
-<% @poll.options.each do |option| %>
-  <p>
-    <strong>Option:</strong>
-    <%= option.title %>
-  </p>
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>Count</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-  <p>
-    <strong>Option:</strong>
-    <%= option.count %>
-  </p>
-<% end %>
+  <tbody>
+    <% @poll.options.each do |option| %>
+      <tr>
+        <td><%= option.title %></td>
+        <td><%= option.count %></td>
+      </tr>
+      <tr></tr>
+    <% end %>
+  </tbody>
+</table>
 
 <h2>Add option:</h2>
 <%= form_for([@poll, @poll.options.build]) do |f| %>
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :count %><br>
-    <%= f.text_field :count %>
   </p>
   <p>
     <%= f.submit %>
