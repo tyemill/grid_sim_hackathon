@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20170711155907) do
+=======
 ActiveRecord::Schema.define(version: 20170711165822) do
+>>>>>>> 4614a44bf4418247429d4a076697d2e6220efed4
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
+=======
   create_table "options", force: :cascade do |t|
     t.string   "title"
     t.integer  "count"
@@ -26,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170711165822) do
 
   add_index "options", ["poll_id"], name: "index_options_on_poll_id", using: :btree
 
+>>>>>>> 4614a44bf4418247429d4a076697d2e6220efed4
   create_table "polls", force: :cascade do |t|
     t.string   "title"
     t.datetime "end"
@@ -33,5 +40,8 @@ ActiveRecord::Schema.define(version: 20170711165822) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
+=======
   add_foreign_key "options", "polls"
+>>>>>>> 4614a44bf4418247429d4a076697d2e6220efed4
 end
