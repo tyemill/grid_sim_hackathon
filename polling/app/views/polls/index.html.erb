@@ -16,8 +16,8 @@
       <tr>
         <td><%= poll.title %></td>
         <td><%= poll.end %></td>
-        <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
         <td><%= link_to 'Vote', poll %></td>
+        <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
       </tr>
 
       <% if poll.end <= Time.now %>
