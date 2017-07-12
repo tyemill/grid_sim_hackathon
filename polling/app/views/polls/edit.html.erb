@@ -1,6 +1,28 @@
 <h1>Editing Poll</h1>
 
-<%= render 'form' %>
+<%= form_for(@poll) do |f| %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :end %><br>
+    <%= f.datetime_select :end %>
+  </div>
+
+  <%= f.fields_for :options, @poll.options_for_poll do |builder| %>
+    <div class="field">
+          <%= builder.label :title, "Option" %>
+          <%= builder.text_field :title %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+
+    <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Edit Options', @poll %> |
 <%= link_to 'Back', polls_path %>
