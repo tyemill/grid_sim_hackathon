@@ -20,7 +20,7 @@
         <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
       </tr>
 
-      <% if poll.end <= Time.now.in_time_zone('America/Los_Angeles').to_date %>
+      <% if poll.end <= Time.now %>
         <% poll.options.order(:title).each do |option| %>
             <tr>
               <td><%= option.title %></td>
