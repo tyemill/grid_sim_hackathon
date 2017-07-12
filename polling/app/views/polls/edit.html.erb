@@ -1,6 +1,43 @@
-<h1>Editing Poll</h1>
+<div style="width:800px; margin:0 auto;">
+  <h1 align="center">Edit Poll</h1>
+<div>
 
-<%= render 'form' %>
+<div style="height: 20px"></div>
 
-<%= link_to 'Edit Options', @poll %> |
-<%= link_to 'Back', polls_path %>
+<%= form_for @poll, :html => {:class => "form-horizontal"} do |f| %>
+
+  <div class="form-group" style="height: 20px">
+    <%= f.label :title, "Add your question here", class: "col-md-4 control-label" %>
+    <div class="col-md-8" style="height: 60px">
+      <%= f.text_field :title, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group" style="height: 20px">
+    <%= f.label :end, "Select end time", class: "col-md-4 control-label" %>
+    <div class="col-md-8"  style="height: 60px">
+      <%= f.datetime_select :end, class: "form-control"  %>
+    </div>
+  </div>
+
+  <%= f.fields_for :options, @poll.options_for_poll, :html => {:class => "form-horizontal"} do |builder| %>
+
+    <div class="form-group">
+      <%= builder.label :title, "Option", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= builder.text_field :title, class: "form-control"  %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <div class="form-horizontal col-md-8" style="margin-left: inherit; height: 60px; padding-left: 400px">
+    <%= f.submit "Save", class: "btn btn-default btn-success" %>
+  </div>
+
+<% end %>
+
+<div></div>
+
+<%= link_to 'Edit Options', @poll, class: 'btn btn-primary' %> |
+<%= link_to 'Back', polls_path, class: 'btn btn-primary' %>

@@ -1,4 +1,5 @@
 class PollsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_poll, only: [:show, :edit, :update, :destroy]
 
   # GET /polls
@@ -15,6 +16,7 @@ class PollsController < ApplicationController
   # GET /polls/new
   def new
     @poll = Poll.new
+    @option = @poll.options.build
   end
 
   # GET /polls/1/edit
@@ -25,6 +27,10 @@ class PollsController < ApplicationController
   # POST /polls.json
   def create
     @poll = Poll.new(poll_params)
+
+    @poll.options.each do |option|
+      option.count = 0
+    end
 
     respond_to do |format|
       if @poll.save
@@ -69,6 +75,6 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :end)
+      params.require(:poll).permit(:title, :end, options_attributes: [:id, :title])
     end
 end

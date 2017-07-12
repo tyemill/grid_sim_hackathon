@@ -1,51 +1,55 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @poll.title %>
-</p>
+<h2 align="center"><%= @poll.title %></h2>
 
-<p>
-  <strong>End:</strong>
-  <%= @poll.end %>
-</p>
+<div>
+  <% if @poll.end <= Time.now %>
+    <h2 align="center">Ended at: <%= @poll.end %></h2>
 
-<h2>Add option:</h2>
-<%= form_for([@poll, @poll.options.build]) do |f| %>
-<table>
-  <tbody>
-    <tr>
-      <td>Option</td>
-      <td><%= f.text_field :title %></td>
-    </tr>
-  </tbody>
-</table>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
-
-<h2>Options</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Option</th>
-      <th>Count</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @poll.options.each do |option| %>
-      <tr>
-        <td><%= option.title %></td>
-        <td><%= option.count %></td>
-      </tr>
-      <tr></tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<%= link_to 'Edit', edit_poll_path(@poll) %> |
-<%= link_to 'Back', polls_path %>
+    <div align="center">
+    <%= link_to 'Edit', edit_poll_path(@poll), class: 'btn btn-primary'  %> |
+    <%= link_to 'Back', polls_path, class: 'btn btn-primary' %>
+    </div>
+    <div style="height: 50px"></div>
+    <table class="table" style="width: 400px" align="center">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Count</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+      <tbody>
+          <% @poll.options.order(:title).each do |option| %>
+              <tr>
+                <td><%= option.title %></td>
+                <td><%= option.count %></td>
+              </tr>
+          <% end %>
+        <tr></tr>
+      </tbody>
+  <% else %>
+          <h2 align="center">Ends at: <%= @poll.end %></h2>
+          <div align="center">
+          <%= link_to 'Edit', edit_poll_path(@poll), class: 'btn btn-primary'  %> |
+          <%= link_to 'Back', polls_path, class: 'btn btn-primary' %>
+          </div>
+          <div style="height: 50px"></div>
+          <table class="table" style="width: 400px; margin-left: 40px">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Option</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+          <tbody>
+          <% @poll.options.order(:title).each do |option| %>
+            <tr>
+              <td><%= link_to "Vote", "/polls/#{@poll.id}/options/#{option.id}", method: :put%></td>
+              <td><%= option.title %></td>
+            </tr>
+          <% end %>
+          <tr></tr>
+        </tbody>
+  <% end %>
+</div>

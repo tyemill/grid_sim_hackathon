@@ -1,25 +1,54 @@
-<%= form_for(@poll) do |f| %>
-  <% if @poll.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
+<div style="width:800px; margin:0 auto;">
+  <h1 align="center">Create Poll</h1>
+<div>
 
-      <ul>
-      <% @poll.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div style="height: 20px"></div>
+
+<%= form_for @poll, :html => {:class => "form-horizontal"} do |f| %>
+
+  <div class="form-group" style="height: 20px">
+    <%= f.label :title, "Add your question here", class: "col-md-4 control-label" %>
+    <div class="col-md-8" style="height: 60px">
+      <%= f.text_field :title, class: "form-control"  %>
     </div>
+  </div>
+
+  <div class="form-group" style="height: 20px">
+    <%= f.label :end, "Select end time", class: "col-md-4 control-label" %>
+    <div class="col-md-8"  style="height: 60px">
+      <%= f.datetime_select :end, class: "form-control"  %>
+    </div>
+  </div>
+
+  <%= f.fields_for :options, @poll.options_for_poll, :html => {:class => "form-horizontal"} do |builder| %>
+
+    <div class="form-group">
+      <%= builder.label :title, "Option", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= builder.text_field :title, class: "form-control"  %>
+      </div>
+    </div>
+
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <%= f.fields_for :options, @poll.options_for_poll, :html => {:class => "form-horizontal"} do |builder| %>
+
+    <div class="form-group">
+      <%= builder.label :title, "Option", class: "col-md-4 control-label" %>
+      <div class="col-md-8">
+        <%= builder.text_field :title, class: "form-control"  %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <div class="form-horizontal col-md-8" style="margin-left: inherit; height: 60px; padding-left: 400px">
+    <%= f.submit "Save", class: "btn btn-default btn-success" %>
   </div>
-  <div class="field">
-    <%= f.label :end %><br>
-    <%= f.datetime_select :end %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>
+
+<div></div>
+
+<%= link_to 'Edit Options', @poll, class: 'btn btn-primary' %> |
+<%= link_to 'Back', polls_path, class: 'btn btn-primary' %>

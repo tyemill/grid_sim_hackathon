@@ -1,8 +1,75 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Polls</h1>
+<h1 align="center">Polling Made Easy</h1>
 
-<table>
+<div align="center">
+  <%= link_to 'Create a New Poll', new_poll_path, class: 'btn btn-success'  %>
+</div>
+
+<% @polls.order(:end).each do |poll| %>
+  <% if poll.end > Time.now %>
+  <table class="table" style="width: 600px" align="center">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td><%= poll.title %></td>
+          <td><%= poll.end %></td>
+          <td><%= link_to 'Vote', poll, class: 'btn btn-primary'  %></td>
+          <td><%= link_to 'Edit poll', edit_poll_path(poll), class: 'btn btn-primary'  %></td>
+        </tr>
+
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+
+    </tbody>
+  </table>
+
+<% else %>
+  <table class="table" style="width: 600px" align="center">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+          <td><%= poll.title %></td>
+          <td><%= poll.end %></td>
+          <td><%= link_to 'Edit poll', edit_poll_path(poll), class: 'btn btn-primary'  %></td>
+        </tr>
+
+                  <% poll.options.order(:title).each do |option| %>
+                      <tr>
+                        <td><%= option.title %></td>
+                        <td><%= option.count %></td>
+                      </tr>
+                  <% end %>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+
+    </tbody>
+  </table>
+
+  <% end %>
+<% end %>
+
+<!-- <table class="table" style="width: 400px" align="center">
   <thead>
     <tr>
       <th>Title</th>
@@ -12,18 +79,34 @@
   </thead>
 
   <tbody>
-    <% @polls.each do |poll| %>
+    <% @polls.order(:end).each do |poll| %>
       <tr>
         <td><%= poll.title %></td>
         <td><%= poll.end %></td>
+        <td><%= link_to 'Vote', poll %></td>
         <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
-        <td>Vote</td>
       </tr>
+
+      <% if poll.end <= Time.now %>
+        <% poll.options.order(:title).each do |option| %>
+            <tr>
+              <td><%= option.title %></td>
+              <td><%= option.count %></td>
+            </tr>
+        <% end %>
+      <% else %>
+          <tr>
+            <td>Poll in progress</td>
+          </tr>
+      <% end %>
+
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
       <tr></tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'Create a New Poll', new_poll_path %>
+<br> -->
