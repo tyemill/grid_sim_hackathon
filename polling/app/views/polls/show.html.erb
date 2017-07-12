@@ -12,6 +12,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Option</th>
       <th>Count</th>
       <th colspan="3"></th>
@@ -19,14 +20,26 @@
   </thead>
 
   <tbody>
-    <% @poll.options.order(:title).each do |option| %>
-      <tr>
-        <td><%= option.title %></td>
-        <td><%= option.count %></td>
-        <td><%= link_to "Vote", "/polls/#{@poll.id}/options/#{option.id}", method: :put%></td>
-      </tr>
-      <tr></tr>
+    <% if @poll.end <= Time.now %>
+      <% @poll.options.order(:title).each do |option| %>
+          <tr>
+            <td><%= link_to "Vote", "/polls/#{@poll.id}/options/#{option.id}", method: :put%></td>
+            <td><%= option.title %></td>
+            <td><%= option.count %></td>
+          </tr>
+      <% end %>
+    <% else %>
+        <tr>
+          <td>Poll in progress</td>
+        </tr>
+      <% @poll.options.order(:title).each do |option| %>
+        <tr>
+          <td><%= link_to "Vote", "/polls/#{@poll.id}/options/#{option.id}", method: :put%></td>
+          <td><%= option.title %></td>
+        </tr>
+      <% end %>
     <% end %>
+    <tr></tr>
   </tbody>
 </table>
 

@@ -12,13 +12,31 @@
   </thead>
 
   <tbody>
-    <% @polls.each do |poll| %>
+    <% @polls.order(:end).each do |poll| %>
       <tr>
         <td><%= poll.title %></td>
         <td><%= poll.end %></td>
         <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
-        <td>Vote</td>
+        <td><%= link_to 'Vote', poll %></td>
       </tr>
+
+      <% if poll.end <= Time.now %>
+        <% poll.options.order(:title).each do |option| %>
+            <tr>
+              <td><%= option.title %></td>
+              <td><%= option.count %></td>
+            </tr>
+        <% end %>
+      <% else %>
+          <tr>
+            <td>Poll in progress</td>
+          </tr>
+      <% end %>
+
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
+      <tr></tr>
       <tr></tr>
     <% end %>
   </tbody>
