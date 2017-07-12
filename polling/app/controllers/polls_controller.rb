@@ -27,7 +27,10 @@ class PollsController < ApplicationController
   # POST /polls.json
   def create
     @poll = Poll.new(poll_params)
-    @option = @poll.options.build
+
+    @poll.options.each do |option|
+      option.count = 0
+    end
 
     respond_to do |format|
       if @poll.save
