@@ -15,12 +15,12 @@
     <% @polls.order(:end).each do |poll| %>
       <tr>
         <td><%= poll.title %></td>
-        <td><%= poll.end %></td>
+        <td><%= poll.end.to_formatted_s(:db) %></td>
         <td><%= link_to 'Vote', poll %></td>
         <td><%= link_to 'Edit poll', edit_poll_path(poll) %></td>
       </tr>
 
-      <% if poll.end <= Time.now %>
+      <% if poll.end <= Time.now.in_time_zone('America/Los_Angeles').to_date %>
         <% poll.options.order(:title).each do |option| %>
             <tr>
               <td><%= option.title %></td>

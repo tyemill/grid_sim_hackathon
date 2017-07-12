@@ -20,7 +20,7 @@
   </thead>
 
   <tbody>
-    <% if @poll.end <= Time.now %>
+    <% if @poll.end <= Time.now.in_time_zone('America/Los_Angeles').to_date %>
       <% @poll.options.order(:title).each do |option| %>
           <tr>
             <td><%= link_to "Vote", "/polls/#{@poll.id}/options/#{option.id}", method: :put%></td>
