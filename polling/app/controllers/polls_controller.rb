@@ -75,6 +75,6 @@ class PollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def poll_params
-      params.require(:poll).permit(:title, :end, options_attributes: [:id, :title])
+      params.require(:poll).permit(:title, options_attributes: [:id, :title])
     end
 end

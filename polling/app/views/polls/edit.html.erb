@@ -13,13 +13,6 @@
     </div>
   </div>
 
-  <div class="form-group" style="height: 20px">
-    <%= f.label :end, "Select end time", class: "col-md-4 control-label" %>
-    <div class="col-md-8"  style="height: 60px">
-      <%= f.datetime_select :end, class: "form-control"  %>
-    </div>
-  </div>
-
   <%= f.fields_for :options, @poll.options_for_poll, :html => {:class => "form-horizontal"} do |builder| %>
 
     <div class="form-group">
@@ -39,5 +32,4 @@
 
 <div></div>
 
-<%= link_to 'Edit Options', @poll, class: 'btn btn-primary' %> |
 <%= link_to 'Back', polls_path, class: 'btn btn-primary' %>
